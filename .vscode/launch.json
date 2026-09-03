@@ -16,7 +16,7 @@
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)", // ensures https
-                "uriFormat": "%s/item/table" //the browser will go directly to ../item/table during debugging
+                "uriFormat": "%s" //the browser will go directly to home page? during debugging
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
