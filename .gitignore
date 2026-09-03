@@ -1,0 +1,39 @@
+# Build results
+bin/
+obj/
+out/
+
+# .NET / NuGet
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+project.lock.json
+project.fragment.lock.json
+artifacts/
+.nuget/
+
+# Rider / Visual Studio
+.vs/
+.idea/
+*.userprefs
+
+# VS Code (keep shared launch/tasks configs, ignore personal overrides)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Local secrets / environment overrides
+appsettings.Local.json
+appsettings.*.local.json
+*.env
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
