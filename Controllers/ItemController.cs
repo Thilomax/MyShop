@@ -38,6 +38,7 @@ public class ItemController : Controller
 
 
         // a viewbag is a dynamic property used to pass data from a controller to a view.
+        //This method also returns a view, but the view requires data. The data in this case is just a list of the items. The data is hardcoded.
         ViewBag.CurrentViewName = "List of Shop Items";
         return View(items);
     }
