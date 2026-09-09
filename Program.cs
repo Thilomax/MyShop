@@ -9,6 +9,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.MapStaticAssets(); //this enables the static assets from wwwroot (the images and the javascript and the css)
+
 //this line is equal to the code that is commented out
 app.MapDefaultControllerRoute();
 
