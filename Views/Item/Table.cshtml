@@ -4,30 +4,4 @@
 @*Link to the grid view:*@
 <a href="/Item/Grid">Grid View</a>
 
-<div class="container">
-    <table class='table table-striped'>
-        @*This below creates a table row with ID, Name, Price and Description.*@
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-        </tr>
-        @*This is a loop that displays all the items on the home page. it iterates 
-            through all the items and puts each objects properties on the page*@
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>@item.ItemId</td>
-                <td>
-                    <a asp-controller="Item" asp-action="Details" asp-route-id="@item.ItemId">
-                    @item.Name
-                    </a>
-                </td>
-                <td>@item.Price.ToString("0.00 NOK")</td>
-                <td>@item.Description</td>
-                <td></td>
-            </tr>
-        }
-    </table>
-</div>
+<partial name="_ItemTable" model=Model.Items" />

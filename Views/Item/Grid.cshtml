@@ -10,24 +10,7 @@ of the view, including a dynamic part from ViewBag.CurrentViewName*@
 @*The following is the grid. the line under me is the responsive grid layout, one column on small screens and three on medium and large screens*@
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var item in Model.Items)
-    {
-        <div class="col">
-            <div>
-                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
-                <div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5 class="text-start">
-                            @*We change the @item.Name to a link so we can click the details*@
-                            <a asp-controller="Item" @* <a> is a link. asp-controller="Item" specifies the name of the controller the link should target, so that if we change the name of the controllers later the link will still work since its not hardcoded.*@
-                               asp-action="Details" @* this is the name of the action method*@
-                               asp-route-id="@item.ItemId">@item.Name</a> @*this sends the ID of the current item to the action method. thats what lets us see the current item. since yk the action method takes a parameter ID which it gets from the URL. this puts that into the URL*@
-                        </h5>
-                        <h5 class="text-nowrap">
-                            @item.Price.ToString("0.00 NOK")
-                        </h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+   {
+        <partial name="_ItemCard" model="item" /> @*Use the partial view we created instead of the code we put in it to avoid duplicated code*@
     }
 </div>
