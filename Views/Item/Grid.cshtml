@@ -1,6 +1,6 @@
 @*We will use this file to display the images on the site in a grid view*@
 @model ItemsViewModel
-    @*were saying were gonna use The model in the ViewModel ItemsViewModel*@
+    @*declaring what type this view's Model is-*@
 
 @*Displays the title
 of the view, including a dynamic part from ViewBag.CurrentViewName*@
@@ -17,7 +17,10 @@ of the view, including a dynamic part from ViewBag.CurrentViewName*@
                 <div>
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="text-start">
-                            @item.Name
+                            @*We change the @item.Name to a link so we can click the details*@
+                            <a asp-controller="Item" @* <a> is a link. asp-controller="Item" specifies the name of the controller the link should target, so that if we change the name of the controllers later the link will still work since its not hardcoded.*@
+                               asp-action="Details" @* this is the name of the action method*@
+                               asp-route-id="@item.ItemId">@item.Name</a> @*this sends the ID of the current item to the action method. thats what lets us see the current item. since yk the action method takes a parameter ID which it gets from the URL. this puts that into the URL*@
                         </h5>
                         <h5 class="text-nowrap">
                             @item.Price.ToString("0.00 NOK")

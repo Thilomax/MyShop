@@ -33,6 +33,21 @@ public class ItemController : Controller
         return View(itemsViewModel);
     }
 
+    public IActionResult Details(int id)
+    {
+        var items = GetItems();
+
+        //go through the list and give me the first one that matches my condition. If nothing matches, give me the default value instead (null)
+        //the lambda just says, does the id of the current one match the id i was given as a paramater when the method was called?
+        var item = items.FirstOrDefault(i => i.ItemId == id);
+        //if it doesnt find it, it returns notfound
+        if (item == null)
+            return NotFound();
+
+        //if it does find it, it hands the item were looking for to the view
+        return View(item);
+    }
+
     //old versions kept for reference - these used ViewBag instead of a ViewModel
     //public IActionResult Table()
     //{
