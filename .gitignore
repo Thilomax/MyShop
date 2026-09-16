@@ -38,4 +38,11 @@ Thumbs.db
 # Logs
 *.log
 
+# Database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
 **/wwwwroot/lib/

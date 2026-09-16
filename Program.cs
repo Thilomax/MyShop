@@ -1,6 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using MyShop.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+//registering the dbContext service here.
+builder.Services.AddDbContext<ItemDbContext>(options =>
+{
+    options.UseSqlite(
+        builder.Configuration["ConnectionStrings:ItemDbContextConnection"]
+    );
+});
 
 var app = builder.Build();
 //checks whether the application is running in development environment. yes? add dev exception page - an error page with info useful for debugging for developers
