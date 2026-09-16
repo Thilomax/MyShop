@@ -1,0 +1,36 @@
+@model Item
+@*
+    This view was shown by the [HttpGet] Create().
+
+    asp-action="Create" only builds the URL (/Item/Create) - it doesn't choose which
+    Create method runs. Both share that URL; what separates them is how the browser
+    asks for it: browsing = GET, submitting a form = POST.
+    So submitting this form hits [HttpPost] Create(Item item), the one that saves to the database.
+*@
+
+<h2>Create New Item</h2>
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name"></label><span class="text-danger">*</span>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger">*</span> @*This line validates the users inputs against the Item Model Models/Item.cs
+        Since the NAME and the PRICE arent nullable, they need to be validated*@
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label><span class="text-danger">*</span>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span> @*Also validates. Defined by Models/Item.cs*@
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button> @*The create button*@
+    <a asp-action="Table" class="btn btn-secondary">Back to Table View</a>
+</form>

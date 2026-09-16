@@ -64,6 +64,30 @@ A field is a variable that belongs to the whole class, so every method in it can
         return View(item);
     }
 
+//This is a GET method used to display the form for creating a new item
+//this method is envoked when you navigate to the create page.
+//[HttpGet] attribute makes this action method handle HTTP GET requests (used to retreive data from a server)
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    //This is a post method. Handles the submission of the form when the usre clicks "Create" button
+    //takes an item object as a parameter which is inserted into the database 
+    //checks if the model state is valid (that the FORM DATA has passed validation rules)
+
+    [HttpPost] //this attribute makes the method able to handle HTTP POST requests. (submitting data to the server)
+    public IActionResult Create(Item item)
+    {
+        if (ModelState.IsValid)
+        {
+            _itemDbContext.Items.Add(item); //if its valid, its added to the database using the current session (connection to the database)
+            _itemDbContext.SaveChanges();
+            return RedirectToAction(nameof(Table));
+        }
+        return View(item); //then after it has added the data, it redirects the user to the table view to show all items in the table
+    }
     //old versions kept for reference - these used ViewBag instead of a ViewModel
     //public IActionResult Table()
     //{
