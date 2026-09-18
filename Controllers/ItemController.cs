@@ -88,6 +88,55 @@ A field is a variable that belongs to the whole class, so every method in it can
         }
         return View(item); //then after it has added the data, it redirects the user to the table view to show all items in the table
     }
+
+    [HttpGet] //Get because it gets the item that should be edited.
+    public IActionResult Update(int id)
+    {
+        var item = _itemDbContext.Items.Find(id); //saves the item that has the id to the var item
+        if (item == null)
+        {
+            return NotFound();
+        }
+        else return View(item); //if found, return View, pass the item as a parameter, the view uses its ID for the URL
+    }
+
+    [HttpPost] 
+    public IActionResult Update(Item item) //takes item parameter, represents the UPDATED item data submitted THROUGH THE FORM (hence the GetPost)
+    {
+        if (ModelState.IsValid) //checks if the item passes the validation rules defined in the ite model class (that the required fields are filled out and theyre the right datatypes)
+        {
+            _itemDbContext.Items.Update(item); //if so, it updates the item in the database. how does it know which item to update tho? the "item" parameter is the updated item, theres no reference to where it is in the database right?
+            _itemDbContext.SaveChanges(); //saves the changes
+            return RedirectToAction(nameof(Table)); //THEN!!! it redirects to the Table action /view, displays the updated item list
+        }
+        return View(item); //if its not valid (submitted data is invalid) it returns the same update view with validation error messages
+    }
+
+    [HttpGet] //this is get, because its only the page before confirmation. you just have to find the item with its data and send you to confirmation
+    public IActionResult Delete(int id)
+    {
+        var item = _itemDbContext.Items.Find(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        return View(item); //if its found, it returns the same Delete view with confirmation and the item data
+    }
+
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int id) //Post action method to perform the actual deletion
+    { 
+        var item = _itemDbContext.Items.Find(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        _itemDbContext.Items.Remove(item); //if the item is found, the item is removed using _itemDbContext.Items.Remove(item)
+        _itemDbContext.SaveChanges(); //changes saved
+        return RedirectToAction(nameof(Table)); //redirect to the Table action to display the updated item list after deletion.
+    }   
+} 
+
     //old versions kept for reference - these used ViewBag instead of a ViewModel
     //public IActionResult Table()
     //{
@@ -102,4 +151,4 @@ A field is a variable that belongs to the whole class, so every method in it can
     //    ViewBag.CurrentViewName = "Grid";
     //    return View(items);
     //}
-}
+

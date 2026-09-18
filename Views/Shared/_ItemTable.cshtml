@@ -8,6 +8,8 @@
             <th>Name</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
         </tr>
         @*This is a loop that displays all the items on the home page. it iterates 
             through all the items and puts each objects properties on the page*@
@@ -22,7 +24,13 @@
                 </td>
                 <td>@item.Price.ToString("0.00 NOK")</td>
                 <td>@item.Description</td>
-                <td></td>
+                <td>
+                    <img src="@item.ImageUrl" alt="Item Image" style="max-width: 80px; max-height: 80px;" /> @*makes the image small in the item table*@
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ItemId">Update</a> @*Button to choose to update or delete something, takes us to the action Update or Delete with the item id, so f. example Update/{id}*@
+                    <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a> @*We then need these action methodis in ItemController.cs*@
+                </td>
             </tr>
         }
     </table>
