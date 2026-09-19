@@ -14,17 +14,31 @@ public class ItemDbContext : DbContext
     // ": base(options)" forwards it up to DbContext so EF knows which database to talk to.
     public ItemDbContext(DbContextOptions<ItemDbContext> options) : base(options)
     {
-        // Creates the database file + tables if they don't exist yet, based on the DbSets below.
-        // Quick and easy, but it cannot update an existing schema later — that's why Demo 3
-        // replaces this with migrations.
-        Database.EnsureCreated(); // For early prototyping only. Remove when switching to EF Core Migrations.
+        //Database.EnsureCreated(); // For early prototyping only. Remove when switching to EF Core Migrations.
     }
 
     // This IS the table. DbSet<Item> = "the collection of Item rows".
     // EF names the table after the property name, so this creates a table called "Items".
     // Every model class you want stored needs its own DbSet line here.
     public DbSet<Item> Items { get; set; }
+    public DbSet<Customer> Customers { get; set; } //these add the new classes into the database.
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+    }
+    /*With lazy loading enabled, when you access a navigation property like OrderItems of the 
+Order class, EF Core will automatically load the related OrderItem entities from the database 
+on-demand, without explicitly loading the entire tree of dependent objects connected by 
+the navigation properties.
+*/
+
 }
+
+
+
 
 
 /*What this all does:
