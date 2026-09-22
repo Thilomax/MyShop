@@ -1,23 +1,51 @@
-@model OrderItem
+@model CreateOrderItemViewModel
 
 <h2>Create New OrderItem</h2>
+@*
+    Why "OrderItem." in front of everything?
 
+    The model is not an OrderItem anymore. It's a ViewModel — a box that holds:
+      - an OrderItem   (the thing we're filling in)
+      - two lists      (the options for the dropdowns)
+
+    asp-for always starts looking inside the model (the box).
+    The box doesn't have an ItemId — the OrderItem inside the box does.
+    So we write the path: first OrderItem, then ItemId → "OrderItem.ItemId".
+
+    Like a folder path: Box / OrderItem / ItemId
+
+    ("Member variable" in the demo text just means "something that lives inside".)
+*@
+
+@*
+A ViewModel is a class made for one page. It holds exactly what that page needs, nothing more.
+
+It exists because of one rule: a view can only take one @model. Usually a page needs more than one thing, so you pack them into one class and send that.
+
+Model vs ViewModel
+
+Model (Item, OrderItem) = the shape of your data. Matches a database table.
+ViewModel = the shape of a page. Built only to carry stuff to a view. Never stored in the database (no DbSet for it).*@
 <form asp-action="CreateOrderItem">
     <div class="form-group">
-        <label asp-for="ItemId"></label><span class="text-danger">*</span>
-        <input asp-for="ItemId" class="form-control" />
-        <span asp-validation-for="ItemId" class="text-danger"></span> 
+        <label asp-for="OrderItem.ItemId"></label><span class="text-danger">*</span>
+        <select asp-for="OrderItem.ItemId" asp-items="Model.ItemSelectList" class="form-control">
+            <option value="">Select an item...</option>
+        </select>
+        <span asp-validation-for="OrderItem.ItemId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Quantity"></label><span class="text-danger">*</span>
-        <input asp-for="Quantity" class="form-control" />
-        <span asp-validation-for="Quantity" class="text-danger"></span>
+        <label asp-for="OrderItem.Quantity"></label><span class="text-danger">*</span>
+        <input asp-for="OrderItem.Quantity" class="form-control" />
+        <span asp-validation-for="OrderItem.Quantity" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="OrderId"></label><span class="text-danger">*</span>
-        <input asp-for="OrderId" class="form-control" />
-        <span asp-validation-for="OrderId" class="text-danger"></span>
+        <label asp-for="OrderItem.OrderId"></label><span class="text-danger">*</span>
+        <select asp-for="OrderItem.OrderId" asp-items="Model.OrderSelectList" class="form-control">
+            <option value="">Select an order...</option>
+        </select>
+        <span asp-validation-for="OrderItem.OrderId" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button> @*The create button*@
+    <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="Table" class="btn btn-secondary">Back to Order Table</a>
 </form>
