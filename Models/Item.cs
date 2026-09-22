@@ -18,6 +18,6 @@ namespace MyShop.Models
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
         //Navigation property
-        public List<OrderItem>? OrderItems { get; set; }
+        public virtual List<OrderItem>? OrderItems { get; set; }
     }
 }
