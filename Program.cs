@@ -17,6 +17,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    DBInit.Seed(app); // this calls the seeding method which uses DBInit.cs to initialise the database with the predefined data
 }
 
 app.MapStaticAssets(); //this enables the static assets from wwwroot (the images and the javascript and the css)
