@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using MyShop.Models;
 
-namespace MyShop.Models;
+namespace MyShop.DAL;
 //we now no longer need the migrations
 public static class DBInit
 {

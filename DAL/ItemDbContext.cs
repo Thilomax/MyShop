@@ -1,7 +1,8 @@
 // Brings in Entity Framework Core — needed for DbContext, DbSet, etc.
 using Microsoft.EntityFrameworkCore;
+using MyShop.Models;
 
-namespace MyShop.Models;
+namespace MyShop.DAL;
 
 // This class is our door into the database.
 // "DbContext" is a ready-made class from Entity Framework that does all the hard work:

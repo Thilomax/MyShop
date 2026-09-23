@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyShop.Models;
+using MyShop.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,8 @@ builder.Services.AddDbContext<ItemDbContext>(options =>
         builder.Configuration["ConnectionStrings:ItemDbContextConnection"]
     );
 });
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 var app = builder.Build();
 //checks whether the application is running in development environment. yes? add dev exception page - an error page with info useful for debugging for developers
